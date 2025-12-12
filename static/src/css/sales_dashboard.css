@@ -1,0 +1,33 @@
+.Revenues{
+    display:inline;
+    font-weight:10px solid black;
+    color:green;
+    background-color:yellow;
+    height:100px;
+    weight:100px;
+    border:1px solid black;
+    }
+.br{
+    border:2px solid black;
+    }
+.sm{
+    font:weight:bold;
+    text-align:center;
+    padding:10px;
+    }
+.hh{
+    display:flex;
+    border:1px solid white;
+    justify-content:center;
+    align-item:center;
+    }
+.Dashboard{
+color:rgba(232, 80, 158, 0.5)
+}
+.salechat{
+text-align:center;
+justify-contentL:center;
+border:1px solid yellow;
+margin:0;
+padding:0;
+}

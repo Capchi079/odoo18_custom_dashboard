@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="owl.OwlSalesDashboard" owl="1">
+        <div class="vh-100 overflow-auto">
+            <div class="row m-3">
+                <div class="col-lg-7">
+                    <div class="row">
+                        <div class="col m-0 p-0">
+                            <div class="shadow-sm border m-2 p-4 bg-white">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <h1 class="text-primary fw-bold Dashboard">Dashboard</h1>
+                                    <div>
+                                        <select class="form-select">
+                                            <option value="0">Select Period</option>
+                                            <option value="7">Last 7 Days</option>
+                                            <option value="30">Last 30 Days</option>
+                                            <option value="90">Last 90 Days</option>
+                                            <option value="365">Last 365 Days</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                                                <KpiCard name="'Quotations'" value="this.quo" percentage="6"
+                                                         t-on-click="goToAction"/>
+                        <KpiCard name="'Orders'" value="this.sale" percentage="20" t-on-click="goOrderToAction"/>
+                        <KpiCard name="'Revenues'" value="this.totalRevenue" percentage=" " class="Revenues"/>
+                        <KpiCard name="'Average'" value="this.avg" percentage="this.sale"/>
+                    </div>
+
+                    <div class="row">
+                                        <div class="col-lg-6 m-0 p-0">
+                                            <div class="shadow-sm border m-2 p-4 bg-white">
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <h3 class="text-primary fw-bold">Top Products</h3>
+                                                    <div class="px-3 py-1 bg-primary cursor-pointer">
+                                                        <span class="fa fa-arrow-right text-white"/>
+                                                    </div>
+                                                </div>
+                                                <ChartRenderer type="'doughnut'" title="'Top Products Report'"/>
+                                            </div>
+                                        </div>
+                        <div class="col-lg-6 m-0 p-0">
+                                            <div class="shadow-sm border m-2 p-4 bg-white">
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <h3 class="text-primary fw-bold">Top Sales People</h3>
+                                                    <div class="px-3 py-1 bg-primary cursor-pointer">
+                                                        <span class="fa fa-arrow-right text-white"/>
+                                                    </div>
+                                                </div>
+                                                <ChartRenderer type="'pie'" title="'Top Sales People Report'"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                </div>
+                <div class="col-lg-5">
+                                <div class="row">
+                                    <div class="col m-0 p-0">
+                                        <div class="shadow-sm border m-2 p-4 bg-white">
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <h3 class="text-primary fw-bold">Monthly Sales</h3>
+                                                <div class="px-3 py-1 bg-primary cursor-pointer">
+                                                    <span class="fa fa-arrow-right text-white"/>
+                                                </div>
+                                            </div>
+                                            <div class="salechat">
+                                            <t t-if="state.chart_image">
+    <img t-att-src="state.chart_image" style="width:300px; height:auto;"/>
+</t>
+                                                </div>
+
+                                            <!--                                            <ChartRenderer type="'bar'" title="'Monthly Sales Report'"/>-->
+                                        </div>
+                                    </div>
+                                </div>
+                    <div class="row">
+                                    <div class="col m-0 p-0">
+                                        <div class="shadow-sm border m-2 p-4 bg-white">
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <h3 class="text-primary fw-bold">Partner Orders</h3>
+                                                <div class="px-3 py-1 bg-primary cursor-pointer">
+                                                    <span class="fa fa-arrow-right text-white"/>
+                                                </div>
+                                            </div>
+                                            <!--           t-on-click="get_fetch_data                                 <img id="chart_img" style="max-width: 300px;" alt="img" />-->
+                                            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                                                <tbody>
+                   <t t-foreach="state.partners" t-as="p" t-key="p">
+
+                        <tr>
+                            <td><t t-esc="p.id"/></td>
+                            <td><t t-esc="p.name"/></td>
+                            <td><t t-esc="p.email"/></td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+
+                                            <!--                                            <ChartRenderer type="'line'" title="'Partner Orders Report'"/>-->
+                                        </div>
+                                    </div>
+                                </div>
+                </div>
+            </div>
+        </div>
+    </t>
+        </templates>
