@@ -16,34 +16,71 @@ import matplotlib.pyplot as plt
 
 class RenderData(http.Controller):
 
+    # @http.route('/dashboard/sales_chart', type='json', auth='user')
+    # def get_sales_chart(self,value=None):
+    #     print('value//////////////////,,,,,,,,.............',value)
+    #     # Sample data
+    #     product=request.env['product.product'].search_read([],['name'],limit=5)
+    #     l=[]
+    #     for rec in product:
+    #         l.append(rec['name'])
+    #
+    #     x = [1, 2, 3, 4, 5]
+    #
+    #
+    #     # Create matplotlib figure
+    #     fig, ax = plt.subplots()
+    #     # ax.pie(x, labels=l,autopct="%1.1f%%")
+    #     ax.bar(x,l,color=['red','blue','yellow','green','black'])
+    #     ax.set_title("Sales Chart")
+    #
+    #     # Save as image buffer
+    #     buf = io.BytesIO()
+    #     plt.savefig(buf, format='png')
+    #     plt.close(fig)
+    #     buf.seek(0)
+    #
+    #     # Encode in base64
+    #     img_base64 = base64.b64encode(buf.read()).decode('utf-8')
+    #
+    #     return {
+    #         "image": img_base64
+    #     }
     @http.route('/dashboard/sales_chart', type='json', auth='user')
-    def get_sales_chart(self):
-        # Sample data
-        product=request.env['product.product'].search_read([],['name'],limit=5)
-        l=[]
-        for rec in product:
-            l.append(rec['name'])
+    def get_sales_chart(self, value="bar"):
+        print("Selected Chart Type:", value)
+
+
+
+        # Sample product names (x labels)
+        product = request.env['product.product'].search_read([], ['name'], limit=5)
+        labels = [rec['name'] for rec in product]
 
         x = [1, 2, 3, 4, 5]
 
-
-        # Create matplotlib figure
         fig, ax = plt.subplots()
-        ax.pie(x, labels=l,autopct="%1.1f%%")
-        ax.set_title("Sales Chart")
 
-        # Save as image buffer
+        # --- Different chart types ---
+        if value == "pie":
+            ax.pie(x, labels=labels, autopct="%1.1f%%")
+        elif value == "hist":
+            ax.hist(x)
+        elif value == "scatter":
+            ax.scatter(x, x)
+        else:
+            ax.bar(x, labels, color=['red', 'blue', 'yellow', 'green', 'black'])
+
+        ax.set_title(f"{value.capitalize()} Chart")
+
+        # Convert to Base64 image
         buf = io.BytesIO()
         plt.savefig(buf, format='png')
         plt.close(fig)
         buf.seek(0)
 
-        # Encode in base64
         img_base64 = base64.b64encode(buf.read()).decode('utf-8')
 
-        return {
-            "image": img_base64
-        }
+        return {"image": img_base64}
 
     @http.route('/api/all/partners', type='http', auth='public',methods=['GET'])
     def get_partners(self):

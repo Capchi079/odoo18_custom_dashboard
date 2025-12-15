@@ -22,12 +22,10 @@ export class OwlSalesDashboard extends Component {
             const data = await res.json();
             console.log(data)
             this.state.partners = data;
+             const result = await this.rpc("/dashboard/sales_chart");
+            this.state.chart_image = "data:image/png;base64," + result.image;
 
         });
-        onMounted(async () => {
-    const result = await this.rpc("/dashboard/sales_chart");
-    this.state.chart_image = "data:image/png;base64," + result.image;
-});
 
 
         onWillStart(async () => {
@@ -78,6 +76,29 @@ export class OwlSalesDashboard extends Component {
 //const result = await this.rpc("/all/partners");
 //            this.state.partners = result.partners;
 //}
+            async loadChart(type) {
+                            this.state.chart_type = type;
+
+                            const result = await this.rpc("/dashboard/sales_chart", {
+                                value: type,
+                            });
+
+                            this.state.chart_image =
+                                "data:image/png;base64," + result.image;
+                        }
+
+                        // 🔥 Dropdown change event
+                        onChartChange(ev) {
+                            const typeMap = {
+                                "0": "bar",
+                                "1": "hist",
+                                "2": "pie",
+                                "3": "scatter",
+                            };
+
+                            let selectedType = typeMap[ev.target.value];
+                            this.loadChart(selectedType);
+                        }
 
     goToAction() {
              this.actionService.doAction({

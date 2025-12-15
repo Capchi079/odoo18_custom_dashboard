@@ -61,13 +61,19 @@
                                         <div class="shadow-sm border m-2 p-4 bg-white">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <h3 class="text-primary fw-bold">Monthly Sales</h3>
-                                                <div class="px-3 py-1 bg-primary cursor-pointer">
-                                                    <span class="fa fa-arrow-right text-white"/>
+                                                <div class="px-3 py-1 cursor-pointer">
+<!--                                                    <span class="fa fa-arrow-right text-white"/>-->
+                                                    <select class="form-select" t-on-change="onChartChange">
+                                                        <option value="0">Bar</option>
+                                                        <option value="1">Histogram</option>
+                                                        <option value="2">Pie</option>
+                                                        <option value="3">Scatter</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="salechat">
                                             <t t-if="state.chart_image">
-    <img t-att-src="state.chart_image" style="width:300px; height:auto;"/>
+    <img t-att-src="state.chart_image" style="width:400px; height:auto; margin-top:10px;"/>
 </t>
                                                 </div>
 
